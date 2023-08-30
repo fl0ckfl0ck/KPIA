@@ -1,0 +1,607 @@
+
+<!-- saved from url=(0061)http://192.168.0.1/sess-bin/timepro.cgi?tmenu=navi_menu_basic -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="renderer" content="webkit"><script>
+function findChildNode(node, name)
+{
+        var temp;
+        if (node == null)
+        {
+                return null;
+        }
+        node = node.firstChild;
+        while (node != null)
+        {
+                if (node.nodeName == name)
+                {
+                        return node;
+                }
+                temp = findChildNode(node, name);
+                if (temp != null)
+                {
+                        return temp;
+                }
+                node = node.nextSibling;
+        }
+        return null;
+}
+
+function GetNaviFrameIndex(value)
+{
+        var idx;
+        var div;
+        idx=value.lastIndexOf('_');
+        div=value.substring(idx-1,idx);
+        return div;
+}
+function GetTmenu(value)
+{
+	var idx;
+	var str;
+	idx=value.indexOf('_');
+	str=value.substring(0,idx);
+	return str;
+}
+
+function toggle_detail_help(tdid)
+{
+	var tdmenu;
+	var F;
+	var fidx;
+	var TbarF;
+	var menu;
+	var id;
+	var tmenu;
+								
+
+        F=parent.navi_menu_advance.document.navi_advance_form.navi_advance_hidden;
+        if(tdid=='')
+        {
+		F.value=top.opener.document.TBarFm.TBarHidden.value;
+                idx=GetNaviFrameIndex(F.value);
+		if(idx!=2)
+		{
+			tmenu=GetTmenu(F.value);
+			id=tmenu+'_setup';
+			menu=parent.navi_menu_advance.document.getElementById('advance_setup');
+			if(menu.style.display!="block" || menu.style.display=="table-cell")
+       				changeNaviTitleMenuState('advance_setup');
+       			menu=parent.navi_menu_advance.document.getElementById(id);
+       			if(menu.style.display!="block" || menu.style.display=="table-cell")
+       				changeNaviTitleMenuState(id);
+		}
+                tdid=F.value;
+        }
+
+        if(F.value=="none")
+        {
+                idx=GetNaviFrameIndex(tdid);
+                if(idx==2)
+                        tdmenu = parent.navi_menu_basic.document.getElementById(tdid);
+                else
+                        tdmenu = parent.navi_menu_advance.document.getElementById(tdid);
+                tdmenu.style.background="#aabcdc";
+                F.value=tdid;
+                tdmenu = findChildNode(tdmenu, "SPAN");
+                if(tdmenu.className=="linknavimenu")
+                {
+                        tdmenu.className = "blurnavimenu" ;
+                }
+        }
+        else
+        {
+                idx=GetNaviFrameIndex(F.value);
+                if(idx==2)
+                        tdmenu = parent.navi_menu_basic.document.getElementById(F.value);
+                else
+                        tdmenu = parent.navi_menu_advance.document.getElementById(F.value);
+                tdmenu.style.background="#ffffff";
+
+                tdmenu = findChildNode(tdmenu, "SPAN");
+                if(tdmenu.className=="blurnavimenu")
+                        tdmenu.className = "linknavimenu" ;
+
+                idx=GetNaviFrameIndex(tdid);
+                if(idx==2)
+                        tdmenu = parent.navi_menu_basic.document.getElementById(tdid);
+                else
+                        tdmenu = parent.navi_menu_advance.document.getElementById(tdid);
+                tdmenu.style.background="#aabcdc";
+
+                F.value=tdid;
+                tdmenu = findChildNode(tdmenu, "SPAN");
+                tdmenu.className = "blurnavimenu" ;
+        }
+}
+
+function toggle_detail(tdid)
+{
+        var tdmenu;
+        var F;
+        var fidx;
+        var TbarF;
+
+        TBarF=parent.parent.parent.nave_menu.document.TBarFm.TBarHidden;
+        F=parent.navi_menu_advance.document.navi_advance_form.navi_advance_hidden;
+        if(F.value=="none")
+        {
+                idx=GetNaviFrameIndex(tdid);
+                if(idx==2)
+                        tdmenu = parent.navi_menu_basic.document.getElementById(tdid);
+                else
+                        tdmenu = parent.navi_menu_advance.document.getElementById(tdid);
+                tdmenu.style.background="#aabcdc";
+                F.value=tdid;
+                TBarF.value=tdid;
+                tdmenu = findChildNode(tdmenu, "SPAN");
+                if(tdmenu.className=="linknavimenu")
+                {
+                        tdmenu.className = "blurnavimenu" ;
+                }
+        }
+        else
+        {
+                idx=GetNaviFrameIndex(F.value);
+                if(idx==2)
+                        tdmenu = parent.navi_menu_basic.document.getElementById(F.value);
+                else
+                        tdmenu = parent.navi_menu_advance.document.getElementById(F.value);
+                tdmenu.style.background="#ffffff";
+
+                tdmenu = findChildNode(tdmenu, "SPAN");
+                if(tdmenu.className=="blurnavimenu")
+                        tdmenu.className = "linknavimenu" ;
+
+                idx=GetNaviFrameIndex(tdid);
+                if(idx==2)
+                        tdmenu = parent.navi_menu_basic.document.getElementById(tdid);
+                else
+                        tdmenu = parent.navi_menu_advance.document.getElementById(tdid);
+                tdmenu.style.background="#aabcdc";
+
+                F.value=tdid;
+                TBarF.value=tdid;
+                tdmenu = findChildNode(tdmenu, "SPAN");
+                tdmenu.className = "blurnavimenu" ;
+        }
+}
+
+function changeNaviTitleMenuState(id)
+{
+        if(id=="")
+                return ;
+        menu = parent.navi_menu_advance.document.getElementById(id);
+
+	if(parent.navi_menu_basic.document.navi_basic_form.image_prefix)
+		image_prefix = parent.navi_menu_basic.document.navi_basic_form.image_prefix.value;
+	else
+		image_prefix = '/images';
+
+        if(id=="basic_setup")
+        {
+                foldericon = parent.navi_menu_advance.document.getElementById('basic_foldericon');
+        }
+        else if(id=="advance_setup")
+        {
+                picon = parent.navi_menu_advance.document.getElementById('advance_picon');
+                foldericon = parent.navi_menu_advance.document.getElementById('advance_foldericon');
+                if(menu.style.display=="none" || menu.style.display=="")
+                {
+			if (navigator.appName.indexOf("Microsoft") != -1)
+				menu.style.display="block";
+			else
+				menu.style.display="table-cell";
+                        picon.src = image_prefix+"/navimenu_minusnode.gif";
+                }
+                else
+                {
+                        menu.style.display="none";
+                        picon.src = image_prefix+"/navimenu_plusnode.gif";
+                }
+                return ;
+        }
+        else if(id=="netconf_setup")
+        {
+                picon = parent.navi_menu_advance.document.getElementById('netconf_picon');
+                foldericon = parent.navi_menu_advance.document.getElementById('netconf_foldericon');
+        }
+        else if(id=="wirelessconf_setup")
+        {
+                picon = parent.navi_menu_advance.document.getElementById('wirelessconf_picon');
+                foldericon = parent.navi_menu_advance.document.getElementById('wirelessconf_foldericon');
+        }
+        else if(id=="wirelessconf5g_setup")
+        {
+                picon = parent.navi_menu_advance.document.getElementById('wirelessconf5g_picon');
+                foldericon = parent.navi_menu_advance.document.getElementById('wirelessconf5g_foldericon');
+        }
+        else if(id=="natrouterconf_setup")
+        {
+                picon = parent.navi_menu_advance.document.getElementById('natrouterconf_picon');
+                foldericon = parent.navi_menu_advance.document.getElementById('natrouterconf_foldericon');
+        }
+        else if(id=="wirelessband_setup")
+        {
+                picon = parent.navi_menu_advance.document.getElementById('wirelessband_picon');
+                foldericon = parent.navi_menu_advance.document.getElementById('wirelessband_foldericon');
+        }
+        else if(id=="firewallconf_setup")
+        {
+                picon = parent.navi_menu_advance.document.getElementById('firewallconf_picon');
+                foldericon = parent.navi_menu_advance.document.getElementById('firewallconf_foldericon');
+        }
+        else if(id=="expertconf_setup")
+        {
+                picon = parent.navi_menu_advance.document.getElementById('expertconf_picon');
+                foldericon = parent.navi_menu_advance.document.getElementById('expertconf_foldericon');
+        }
+        else if(id=="trafficconf_setup")
+        {
+                picon = parent.navi_menu_advance.document.getElementById('trafficconf_picon');
+                foldericon = parent.navi_menu_advance.document.getElementById('trafficconf_foldericon');
+        }
+        else if(id=="nasconf_setup")
+        {
+                picon = parent.navi_menu_advance.document.getElementById('nasconf_picon');
+                foldericon = parent.navi_menu_advance.document.getElementById('nasconf_foldericon');
+        }
+	else if(id=="basicapp_setup")
+        {
+                picon = parent.navi_menu_advance.document.getElementById('basicapp_picon');
+                foldericon = parent.navi_menu_advance.document.getElementById('basicapp_foldericon');
+        }
+	else if(id=="pluginapp_setup")
+        {
+                picon = parent.navi_menu_advance.document.getElementById('pluginapp_picon');
+                foldericon = parent.navi_menu_advance.document.getElementById('pluginapp_foldericon');
+        }
+        else if(id=="sysconf_setup")
+        {
+                picon = parent.navi_menu_advance.document.getElementById('sysconf_picon');
+                foldericon = parent.navi_menu_advance.document.getElementById('sysconf_foldericon');
+                if(menu.style.display=="block" || menu.style.display=="table-cell")
+                {
+                        menu.style.display="none";
+                        picon.src = image_prefix+"/last_plus.gif";
+                }
+                else
+                {
+			if (navigator.appName.indexOf("Microsoft") != -1)
+				menu.style.display="block";
+			else
+				menu.style.display="table-cell";
+                        picon.src = image_prefix+"/last_minus.gif";
+                }
+                return ;
+        }
+
+        if(menu.style.display=="block" || menu.style.display=="table-cell")
+        {
+                menu.style.display="none";
+                picon.src = image_prefix+"/middle_plus.gif";
+        }
+        else
+        {
+		if (navigator.appName.indexOf("Microsoft") != -1)
+			menu.style.display="block";
+		else
+			menu.style.display="table-cell";
+                picon.src = image_prefix+"/middle_minus.gif";
+        }
+}
+
+function toggle(id,tdid)
+{
+        var tdmenu;
+        var picon;
+        var menu;
+        var foldericon;
+        var F_advance;
+        var F_basic;
+        var fidx;
+
+        if(id=="basic_setup")
+                return ;
+        F=parent.navi_menu_advance.document.navi_advance_form.navi_advance_hidden;
+        if(F.value=="none")
+        {
+                if(tdid!="")
+                {
+                        tdid.style.background="#aabcdc";
+                        F.value=tdid.id;
+                }
+        }
+        else
+        {
+                idx=GetNaviFrameIndex(F.value);
+                if(idx==2)
+                        tdmenu = parent.navi_menu_basic.document.getElementById(F.value);
+                else
+                        tdmenu = parent.navi_menu_advance.document.getElementById(F.value);
+                if(tdid=="")
+                {
+                        tdmenu.style.background="#ffffff";
+                        tdmenu = findChildNode(tdmenu, "SPAN");
+                        if(tdmenu.className=="blurnavimenu")
+                                tdmenu.className = "linknavimenu" ;
+                        F.value="none";
+                }
+                else
+                {
+                        tdmenu.style.background="#ffffff";
+                        tdmenu = findChildNode(tdmenu, "SPAN");
+                        if(tdmenu.className=="blurnavimenu")
+                                tdmenu.className = "linknavimenu" ;
+                        tdid.style.background="#aabcdc";
+                        F.value=tdid.id;
+                }
+        }
+        changeNaviTitleMenuState(id)
+}
+</script>
+
+<title>ipTIME A8004T</title>
+<meta name="format-detection" content="telephone=no"><style>a:link { text-decoration:none; color:#000000; outline:none; }
+a:visited { text-decoration:none;color:#000000; outline:none; }
+a:hover { text-decoration:underline; color:#000000; outline:none; }
+a:active { text-decoration:none; font-size:9pt; color:#000000; background-color:#ffffff; outline:none; }
+a:focus { text-decoration:none; font-size:9pt; color:#000000; background-color:#ffffff; outline:none; }
+
+table,td { font: normal normal normal 12px arial; color:#000000; }
+.content_table { border-collapse:collapse; }
+
+.help_table { border-collapse:collapse; width:670px; border: 0px solid #ffffff; }
+.help_title_td { background-color:#99AFD6; padding: 4px 10px; height:30px; }
+.help_lefttitle_td { background-color:#000000; width:160px;padding: 4px 10px; height:30px; }
+.help_title_string { font:normal normal bold 10pt arial; color:#ffffff; }
+.help_leftbody_td { padding: 10px; background-color:#ffffff; border:0px solid #cccccc; vertical-align:top; }
+
+.log_error_text {  font-size:12px; color:#AC3030; }
+.log_warning_text {  font-size:12px; color:#4886B9; }
+.log_info_text {  font-size:12px; color:#A9A9A9; }
+
+.bold_item_text { font-size:12px; color:#000000; font-weight:bold; }
+INPUT, TEXTAREA, SELECT {  font-size: 12px; color:#000000;}
+.navy_string { font: normal normal bold 9pt arial; color:navy; }
+body
+{
+	font: normal normal normal 12px arial; 
+}
+
+.subtitle_underbar { background-color:#000000; }
+.subtitle_string { font: normal normal bold 12px arial; color:#000000; }
+
+.navimaintable { margin-top:0; margin-right:0; margin-bottom:0; margin-left:0; border-style:none ;border-color:yellow yellow; height:100%; border-collapse:collapse;}
+.navicontent_table { margin-bottom:0; margin-top:0; margin-right:0; margin-left:0; border-style: none; border-color:black blue; border-collapse:collapse; }
+.nomargin_border_table {
+	margin:0 0 0 0; 
+	padding:0 0 0 0;
+	border-collapse:collapse; height:100%; border-width:0; border-style:solid; border-color: #ffffff; 
+}
+
+.nomargin_table {
+	margin-left:0; 
+	margin-right:0; 
+	margin-top:0px;
+	margin-bottom:0;
+	padding:0px 0px 0px 0px;
+	border-collapse:collapse; 
+	height:100%
+}
+
+.menu_table {
+	margin:0;
+	padding:0;
+	border-collapse:collapse;
+	border-spacing:0;
+        border-width:0; 
+}
+.menu_topbar_span {
+	margin-left:35; 
+	font-size:9pt; 
+	font-weight:bold;
+}
+
+.navi_topbar_span {
+	margin-left:35px;
+	font-size:9pt;
+	font-weight:bold;
+}
+
+
+.topbar_table { margin-top:1; margin-right:1; margin-bottom:0; margin-left:1; border-style:none; border-color:#ffffff;  border-collapse:collapse;}
+.topbar_td {width:415; padding:0; }   
+.menu_main_table { margin-top:0px; margin-left:5px; width:601; border-collapse:collapse; border:0; border-style:none;}
+.menu_content_list_table {border-collapse:collapse; border-width:1; border-style:solid none solid none; border-color:#EFEBDE; width:100%; }
+.menu_content_list_noline_table {border-collapse:collapse; border-style:none none none none; width:100%; }
+.menu_content_list_line_table {border-collapse:collapse; border-width:1; border-color:#EFEBDE; border-style:solid solid solid solid; width:100%; padding:0 10 0 10;}
+
+.itemdesc_td { border-collapse:collapse; height:20px; padding-top: 0px; padding-bottom: 2px; padding-left: 10px; padding-right: 10px; background-color:#f1f1f1; border-color:#EFEBDE; border-style:solid none solid none; border-width:1 1 1 1;}
+.item_td { height:20px; padding: 0px 10px 0px 10px; background-color:#FFFFFF; border-collapse:collapse; border-style:solid none solid none; border-width:1 1 1 1;  border-color:#EFEBDE;  }
+.noline_item_td { height:20px; padding: 0px 10px; background-color:#FFFFFF; border-collapse:collapse; border-style:none none none none; border-width:1 1 1 1;}
+.noline_td { height:20px; padding: 0px 10px; border-collapse:collapse; border-style:none none none none; border-width:1 1 1 1;}
+.bottomline_item_td { height:20px; padding: 0px 10px; background-color:#FFFFFF; border-collapse:collapse; border-style:none none solid none; border-width:1 1 1 1; border-color:#EFEBDE; }
+.itemdesc_select_td { padding-top: 0px; padding-bottom: 0px; padding-left: 10px; padding-right: 10px;  border-color:#EFEBDE; background-color:#f1f1f1; border-style:solid none solid none; border-width:1 1 1 1;}
+.item_select_td { padding: 0px 10px 0px 10px ; background-color:#8293bb; border-collapse:collapse;  border-color:#EFEBDE; border-style:solid none solid none; border-width:1 1 1 1;}
+.item_noline_td { padding: 2px 10px; background-color:#FFFFFF; border-collapse:collapse; border-style:none none none none; border-width:1 1 1 1;}
+.item_line_td { padding: 2px 10px; background-color:#FFFFFF; border-collapse:collapse; border-color:#EFEBDE; border-style:solid solid solid solid; border-width:1 1 1 1;}
+.itemdesc_line_td { padding-top: 2px; padding-bottom: 2px; padding-left: 10px; padding-right: 10px; background-color:#f1f1f1; border-color:#EFEBDE; border-style:solid solid solid solid; border-width:1 1 1 1;}
+.item_leftline_td { padding: 0px 10px; background-color:#FFFFFF; border-collapse:collapse; border-color:#EFEBDE; border-style:solid none solid solid; border-width:1 1 1 1;}
+.itemdesc_leftline_td { padding-top: 2px; padding-bottom: 2px; padding-left: 10px; padding-right: 10px; background-color:#f1f1f1; border-color:#EFEBDE; border-style:solid none solid solid; border-width:1 1 1 1;}
+
+.item_text { font: normal normal normal 12px arial; color:#000000; }
+.navy_text { font: normal normal normal 12px arial; color:navy; }
+.gray_text { font: normal normal normal 12px arial; color:#888888; }
+.warning_string { font: normal normal bold 9pt arial; color:#ff0000 }
+.white_text { font-size:9pt; color:#FFFFFF; }
+.darkred_text { font: normal normal bold 12px arial; color:#901A03 }
+
+.navi_text {height:18; }
+.navi_radio {height:15; }
+.navi_select {font-size:11; background-color:ffffff;}
+
+
+.wizard_outline_table {
+	margin-left:0; margin-right:0; margin-top:0px; margin-bottom:0; padding:0px 0px 0px 0px;
+	border-collapse:collapse; 
+	border-width:1 1 1 1; border-style:solid solid solid solid; border-color: gray gray gray gray;
+	}
+
+.wizardtable_td { 
+	margin:0 0 0 0;
+	padding:0 0 0 0;
+	border-collapse:collapse;
+	border-width:1;
+	border-style:ridge ridge ridge ridge; 
+	border-color: gray black black gray;
+}
+.wizardtop_td { padding:5px 10px; background-color:#FFFFFF; border:0px solid #cccccc; vertical-align:top; }
+.wizardbody_td { padding:5 10;  background-color:#f1f1f1; border:1px solid #cccccc; vertical-align:top; }
+.wizardbottom_td { padding-top:0; background-color:#f1f1f1; border:1px solid #cccccc; height:25px;}
+.wizard_content_table {border-collapse:collapse; border-style:none;  }
+
+.slim_item_td { padding: 0px 0px; border-collapse:collapse; border-color:#EFEBDE; border-style:solid none solid none; border-width:1 1 1 1; }
+.slim_itemdesc_td { padding: 0px 0px; background-color:#f1f1f1; border-color:#EFEBDE; border-style:solid none  solid none; border-width:1 1 1 1;}
+.noline_slim_itemdesc_td { padding: 0px 0px; background-color:#f1f1f1; border-color:#EFEBDE; border-style:none none  none none; }
+.slim_notop_item_td { padding: 0px 0px; border-collapse:collapse; border-color:#EFEBDE; border-style:none none solid none; border-width:1 1 1 1;}
+.slim_item_leftline_td { padding: 0px 0px; background-color:#FFFFFF; border-collapse:collapse; border-color:#EFEBDE; border-style:solid none solid solid; border-width:1 1 1 1;}
+
+.big_td { height:50px; padding: 3px 5px; border-style:none none solid none; border-collapse:collapse; border-color:#CCCCCC gray #CCCCCC gray; border-width:1 1 1 1; }
+.big_selected_td { height:0px; padding: 3px 5px; background-color:#1C49AC; border-collapse:collapse; border-style:solid none solid none; border-width:1 1 1 1; }
+.scan_body { margin-left:0; margin-right:0; margin-top:0px; margin-bottom:0; background-color:#FFFFFF; }
+.check_ssid_body { margin-left:0; margin-right:0; margin-top:0px; margin-bottom:0; background-color:#ECE9D8; }
+.gray_body { margin-left:0; margin-right:0; margin-top:0px; margin-bottom:0; background-color:#EEEEEE; }
+.login_info_td {height:84; padding:0px 17px 0px 0px; border-collapse:collapse;}
+
+.pcinfo_chk_td {padding:0px 0px 0px 18px; border-collapse:collapse; border-color:#EFEBDE; border-style:solid none solid none ; border-width:1 1 1 1; }
+.pcinfo_chk_noline_td {padding:0px 0px 0px 18px; border-collapse:collapse; border-style:none ; border-width:1 1 1 1; }
+.pcinfo_mac_td {padding:0px 0px 0px 10px; border-collapse:collapse; border-color:#EFEBDE; border-style:solid none solid none; border-width:1 1 1 1; }
+.pcinfo_mac_noline_td {padding:0px 0px 0px 10px; border-collapse:collapse; border-style:none; border-width:1 1 1 1; }
+.macauth_dblist_td {padding:0px 0px 0px 9px; border-collapse:collapse;border-color:#EFEBDE; border-style:solid none solid none; border-width:1 1 1 1; }
+.macauth_dblist_mac_td {padding:0px 0px 0px 6px; margin-right:0px; border-collapse:collapse; border-color:#EFEBDE; border-style:solid none solid none; border-width:1 1 1 1; }
+.macauth_dblist_noline_td {padding:0px 0px 0px 9px; border-color:#EFEBDE; border-collapse:collapse; border-style:none; border-width:1 1 1 1; }
+.macauth_dblist_mac_noline_td {padding:0px 0px 0px 6px; margin-right:0px; border-collapse:collapse; border-style:none; border-width:1 1 1 1; }
+
+.blank_table { margin:0px 0px; padding:0px 0px; border-collapse:collapse; border-width:0 0 0 0; border-style:solid solid solid solid; border-color: gray gray gray gray; }
+.progress_table 
+{ 
+        margin-left:0; margin-right:0; margin-top:0px; margin-bottom:0; padding:0px 0px 0px 0px;
+        border-collapse:collapse;
+        border-width:1 1 1 1; border-style:solid solid solid solid; border-color: gray gray gray gray;
+}
+
+
+.movetomain { margin-left:4px }
+.movetomain a:link { text-decoration:none; color:#0000ff; }
+.movetomain a:visited { text-decoration:none;color:#0000ff;}
+.movetomain a:hover { text-decoration:underline; color:#0000ff; }
+.movetomain a:active { text-decoration:none; font-size:9pt; color:#0000ff; background-color:#ffffff; }
+
+.noline_text { border:0px solid #cccccc; background-color: #ffffff; }
+.noline_desc_text { border:0px solid #cccccc; background-color: #f1f1f1; }
+
+.item_box { padding: 10px 10px 10px 10px; background-color:#FFFFFF; border-collapse:collapse; border-style:solid solid solid solid; border-width:1 1 1 1;  border-color:#cccccc;  }
+
+.itemdesc_box { padding: 10px 10px 10px 10px; background-color:#f1f1f1; border-collapse:collapse; border-style:solid solid solid solid; border-width:1 1 1 1;  border-color:#cccccc;  }
+
+.slim_itemdesc_box { padding: 0px 0px 0px 0px; background-color:#f1f1f1; border-collapse:collapse; border-style:solid solid solid solid; border-width:1 1 1 1;  border-color:#cccccc;  }
+
+.i_row { padding:0px; background-color:#FFFFFF; border-collapse:collapse; border-style:none none solid none; border-width:1 1 1 1;  border-color:#CCCCCC;  }
+.e_row { padding:0px; background-color:#FFFFFF; border-collapse:collapse; border-style:solid none none none; border-width:1 1 1 1;  border-color:#CCCCCC;  }
+.sb_row { padding:0px; background-color:#eeeeee; border-collapse:collapse; border-style:none none solid none; border-width:1 1 1 1;  border-color:#888888;  }
+.sb_col { padding:0px; background-color:#FFFFFF; border-collapse:collapse; border-style:none none solid none; border-width:1 1 1 1;  border-color:#888888;  }
+
+.nobottom_desc_box { padding:0px; background-color:#f1f1f1; border-collapse:collapse; border-style:solid solid none solid; border-width:1 1 1 1;  border-color:#CCCCCC;  }
+
+
+.noline_box { padding:0px 0px 0px 0px; border-style:none none none none; }
+
+
+.v3_table { background-color:#eeeeee; border-collapse:collapse; border-style:none none none none; border-width:0px 0px 0px 0px; border-color:#eeeeee; width:100%;}
+.v3_iframe_table { border-collapse:collapse; border-style:none none none none;  width:100%; }
+
+p { margin: 0; }
+</style></head>
+<body bgcolor="#dedede" topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" style="background-color:transparent">
+<form name="navi_basic_form">
+<input type="hidden" name="navi_basic_hidden" value="none">
+<input type="hidden" name="image_prefix" value="/images2">
+<table class="navimaintable" cellpadding="0" cellspacing="0" width="197">
+ <tbody><tr>
+<td valign="top">
+<table class="navicontent_table" cellpadding="0" cellspacing="0">
+ <tbody><tr>
+<td>
+<table class="navicontent_table" width="100%" cellpadding="0" cellspacing="0">
+<tbody><tr><td colspan="3" height="5"></td></tr>
+<tr>
+<td>
+</td><td width="16"></td>
+<td width="16">
+<img id="basic_foldericon" src="./navimenu_title_basic_setup.gif"></td>
+<td id="basic_setup_td">
+<span style="margin-left:4;">기본 설정</span>
+</td></tr>
+</tbody></table>
+</td></tr>
+<tr>
+<td id="basic_setup">
+<table class="navicontent_table" cellpadding="0" cellspacing="0">
+<tbody><tr>
+<td width="16"></td>
+<td>
+<img src="./middle_line.gif"></td>
+<td>
+<img src="./system_info.gif"></td>
+<td id="system_info_2_td">
+<span style="margin-left:4px;">
+<a href="http://192.168.0.1/sess-bin/timepro.cgi?tmenu=system&amp;smenu=info" target="main" onfocus="this.blur();" onclick="toggle_detail(&#39;system_info_2_td&#39;); parent.menu_title.location.href=&#39;timepro.cgi?tmenu=menu_titlebar&amp;smenu=system_info&#39;" ;="">
+시스템 요약 정보</a></span></td></tr>
+<tr>
+<td width="16"></td>
+<td>
+<img src="./middle_line.gif"></td>
+<td>
+<img src="./netconf_wansetup.gif"></td>
+<td id="netconf_wansetup_2_td">
+<span style="margin-left:4px;">
+<a href="http://192.168.0.1/sess-bin/timepro.cgi?tmenu=netconf&amp;smenu=wansetup" target="main" onfocus="this.blur();" onclick="toggle_detail(&#39;netconf_wansetup_2_td&#39;); parent.menu_title.location.href=&#39;timepro.cgi?tmenu=menu_titlebar&amp;smenu=netconf_wansetup&#39;" ;="">
+인터넷 설정 정보</a></span></td></tr>
+<tr>
+<td width="16"></td>
+<td>
+<img src="./middle_line.gif"></td>
+<td>
+<img src="./wirelessconf_basicsetup.gif"></td>
+<td id="wirelessconf_basicsetup_2_td">
+<span style="margin-left:4px;">
+<a href="http://192.168.0.1/sess-bin/timepro.cgi?tmenu=wirelessconf&amp;smenu=basicsetup" target="main" onfocus="this.blur();" onclick="toggle_detail(&#39;wirelessconf_basicsetup_2_td&#39;); parent.menu_title.location.href=&#39;timepro.cgi?tmenu=menu_titlebar&amp;smenu=wirelessconf_basicsetup&#39;" ;="">
+무선 설정/보안</a></span></td></tr>
+<tr>
+<td width="16"></td>
+<td>
+<img src="./middle_line.gif"></td>
+<td>
+<img src="./sysconf_swupgrade.gif"></td>
+<td id="sysconf_swupgrade_2_td">
+<span style="margin-left:4px;">
+<a href="http://192.168.0.1/sess-bin/timepro.cgi?tmenu=sysconf&amp;smenu=swupgrade" target="main" onfocus="this.blur();" onclick="toggle_detail(&#39;sysconf_swupgrade_2_td&#39;); parent.menu_title.location.href=&#39;timepro.cgi?tmenu=menu_titlebar&amp;smenu=sysconf_swupgrade&#39;" ;="">
+펌웨어 업그레이드</a></span></td></tr>
+<tr>
+<td width="16"></td>
+<td>
+<img src="./last_line.gif"></td>
+<td>
+<img src="./wirelessconf_basicsetup.gif"></td>
+<td id="wirelessconf_easymesh_2_td">
+<span style="margin-left:4px;">
+<a href="http://192.168.0.1/sess-bin/timepro.cgi?tmenu=wirelessconf&amp;smenu=easymesh" target="main" onfocus="this.blur();" onclick="toggle_detail(&#39;wirelessconf_easymesh_2_td&#39;); parent.menu_title.location.href=&#39;timepro.cgi?tmenu=menu_titlebar&amp;smenu=wirelessconf_easymesh&#39;" ;="">
+Easy Mesh</a></span></td></tr>
+</tbody></table>
+</td></tr>
+</tbody></table>
+</td></tr>
+</tbody></table>
+
+
+</form>
+</body></html>
